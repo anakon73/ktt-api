@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class MeetingController extends Controller
 {
-
     public function index()
     {
         return DB::select('select * from meetings');
