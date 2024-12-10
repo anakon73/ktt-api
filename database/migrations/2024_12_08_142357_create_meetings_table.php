@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('lead_wt')->nullable();
             $table->string('reader')->nullable();
             $table->string('closing_prayer')->nullable();
-            // $table->integer('mm_id');
             $table->string('special_program')->nullable();
             $table->string('place_address')->nullable();
             $table->string('place_url')->nullable();
