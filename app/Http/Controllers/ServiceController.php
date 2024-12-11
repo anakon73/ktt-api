@@ -9,13 +9,13 @@ class ServiceController extends Controller
 {
     public function index()
     {
-        return DB::select('select * from services');
+        return DB::select('SELECT * FROM services');
     }
 
     public function show(Service $service)
     {
         return DB::select(
-            'select * from services where id = :id',
+            'SELECT * FROM services WHERE id = :id',
             ['id' => $service->id]
         );
     }
@@ -23,7 +23,7 @@ class ServiceController extends Controller
     public function getByDate($date)
     {
         return DB::select(
-            'select * from services where DATE(created_at) = :date',
+            'SELECT * FROM services WHERE DATE(created_at) = :date',
             ['date' => $date]
         );
     }
