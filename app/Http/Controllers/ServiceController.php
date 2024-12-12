@@ -19,12 +19,4 @@ class ServiceController extends Controller
             ['id' => $service->id]
         );
     }
-
-    public function getByDate($date)
-    {
-        return DB::select(
-            'SELECT * FROM services WHERE DATE(created_at) = :date',
-            ['date' => $date]
-        );
-    }
 }

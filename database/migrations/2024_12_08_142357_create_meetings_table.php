@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('meetings', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->date('date');
             $table->string('leading');
             $table->string('speaker')->nullable();
             $table->string('speech_title')->nullable();

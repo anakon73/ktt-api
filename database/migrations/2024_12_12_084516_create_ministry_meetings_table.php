@@ -8,19 +8,21 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('ministry_meetings', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->date('date');
-            $table->string('scene')->nullable();
-            $table->string('microphones')->nullable();
-            $table->string('voiceover_zoom')->nullable();
-            $table->string('administrator')->nullable();
+            $table->string('leader')->nullable();
+            $table
+                ->foreignId('address_id')
+                ->nullable()
+                ->constrained('addresses')
+                ->onDelete('cascade');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('ministry_meetings');
     }
 };

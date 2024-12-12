@@ -9,22 +9,23 @@ class MeetingController extends Controller
 {
     public function index()
     {
-        return DB::select('SELECT * FROM meetings');
+        return DB::select(
+            'SELECT meetings.*, address.*
+             FROM meetings
+             LEFT JOIN addresses AS address
+             ON meetings.address_id = address.id'
+        );
     }
 
     public function show(Meeting $meeting)
     {
         return DB::select(
-            'SELECT * FROM meetings WHERE id = :id',
+            'SELECT meetings.*, address.*
+             FROM meetings
+             LEFT JOIN addresses AS address
+             ON meetings.address_id = address.id
+             WHERE meetings.id = :id',
             ['id' => $meeting->id]
-        );
-    }
-
-    public function getByDate($date)
-    {
-        return DB::select(
-            'SELECT * FROM meetings WHERE DATE(created_at) = :date',
-            ['date' => $date]
         );
     }
 }
