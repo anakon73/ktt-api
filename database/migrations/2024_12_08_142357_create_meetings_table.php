@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('reader')->nullable();
             $table->string('closing_prayer')->nullable();
             $table->string('special_program')->nullable();
-            $table->string('place_address')->nullable();
-            $table->string('place_url')->nullable();
         });
     }
 

@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Address;
 use App\Models\Meeting;
 use App\Models\Service;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
 class MeetingFactory extends Factory
 {
@@ -21,9 +23,8 @@ class MeetingFactory extends Factory
             'reader' => $this->faker->name('male'),
             'closing_prayer' => $this->faker->name('male'),
             'special_program' => $this->faker->words(3, true),
-            'place_address' => $this->faker->address(),
-            'place_url' => 'https://maps.app.goo.gl/Z8fAGGWtun9ssfva8',
             'service_id' => null,
+            'address_id' => null,
         ];
     }
 
@@ -34,6 +35,11 @@ class MeetingFactory extends Factory
                 'meeting_id' => $meeting->id
             ]);
             $meeting->service_id = $service->id;
+
+            $meeting->address_id = DB::table('addresses')
+                ->inRandomOrder()
+                ->value('id');
+
             $meeting->save();
         });
     }
