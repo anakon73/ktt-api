@@ -40,4 +40,9 @@ class AddressController extends Controller
 
         return $validated;
     }
+
+    public function destroy(int $id)
+    {
+        DB::delete('DELETE FROM addresses WHERE id = :id', ['id' => $id]);
+    }
 }

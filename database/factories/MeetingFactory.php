@@ -26,8 +26,13 @@ class MeetingFactory extends Factory
             'closing_prayer' => $this->faker->name('male'),
             'special_program' => $this->faker->words(3, true),
             'service_id' => null,
-            'address_id' => null,
+            'address_id' => DB::table('addresses')
+                ->inRandomOrder()
+                ->value('id'),
             'ministry_meeting_id' => null,
+            'status_id' => DB::table('meeting_statuses')
+                ->inRandomOrder()
+                ->value('id',)
         ];
     }
 
@@ -41,10 +46,6 @@ class MeetingFactory extends Factory
                 'date' => $meeting->date,
             ]);
             $meeting->service_id = $service->id;
-
-            $meeting->address_id = DB::table('addresses')
-                ->inRandomOrder()
-                ->value('id');
 
             $availableMinistryMeetingId = DB::select("
                 SELECT mm.id

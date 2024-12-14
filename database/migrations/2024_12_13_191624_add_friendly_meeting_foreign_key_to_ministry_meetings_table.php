@@ -8,21 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('ministry_meetings', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->timestamp('date');
-            $table->string('leader')->nullable();
+        Schema::table('ministry_meetings', function (Blueprint $table) {
             $table
-                ->foreignId('address_id')
+                ->foreignId('friendly_meeting_id')
                 ->nullable()
-                ->constrained('addresses')
+                ->constrained('friendly_meetings')
                 ->onDelete('cascade');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('ministry_meetings');
+        Schema::table('ministry_meetings', function (Blueprint $table) {
+            $table->dropForeign(['friendly_meeting_id']);
+        });
     }
 };

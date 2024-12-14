@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\FriendlyMeetingController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\MinistryMeetingController;
 use App\Http\Controllers\ServiceController;
@@ -21,8 +22,15 @@ Route::prefix('/services')->controller(ServiceController::class)->group(function
   Route::get('/{service}', 'show');
 });
 
-Route::prefix('addresses')->controller(AddressController::class)->group(function () {
+Route::prefix('/addresses')->controller(AddressController::class)->group(function () {
   Route::get('/', 'index');
   Route::get('/{address}', 'show');
+  Route::post('/', 'store');
+  Route::delete('/{id}', 'destroy');
+});
+
+Route::prefix('/friendly-meetings')->controller(FriendlyMeetingController::class)->group(function () {
+  Route::get('/', 'index');
+  Route::get('/{friendlyMeeting}', 'show');
   Route::post('/', 'store');
 });

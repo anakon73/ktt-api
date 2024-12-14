@@ -9,8 +9,18 @@ class Meeting extends Model
 {
     use HasFactory;
 
-    public function service()
+    public function address()
     {
-        $this->hasOne(Service::class);
+        return $this->belongsTo(Address::class, 'address_id');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(MeetingStatus::class, 'status_id');
+    }
+
+    public function ministryMeeting()
+    {
+        return $this->belongsTo(MinistryMeeting::class, 'ministry_meeting_id');
     }
 }

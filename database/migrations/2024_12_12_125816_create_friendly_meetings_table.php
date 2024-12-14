@@ -8,19 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('friendly_meetings', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->timestamp('date');
-            $table->string('scene')->nullable();
-            $table->string('microphones')->nullable();
-            $table->string('voiceover_zoom')->nullable();
-            $table->string('administrator')->nullable();
+            $table->string('description');
+            $table->string('inviting');
+            $table->string('address');
+            $table->string('address_url');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('friendly_meetings');
     }
 };

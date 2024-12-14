@@ -9,4 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class MinistryMeeting extends Model
 {
     use HasFactory;
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+
+    public function friendlyMeeting()
+    {
+        return $this->belongsTo(FriendlyMeeting::class);
+    }
 }
