@@ -9,6 +9,20 @@ class Meeting extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'date',
+        'leading',
+        'speech_title',
+        'lead_wt',
+        'reader',
+        'closing_prayer',
+        'special_program',
+        'status_id',
+        'service_id',
+        'address_id',
+        'ministry_meeting_id',
+    ];
+
     public function address()
     {
         return $this->belongsTo(Address::class, 'address_id');
@@ -17,6 +31,11 @@ class Meeting extends Model
     public function status()
     {
         return $this->belongsTo(MeetingStatus::class, 'status_id');
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id');
     }
 
     public function ministryMeeting()

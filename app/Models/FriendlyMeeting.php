@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class FriendlyMeeting extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'address',
+        'address_url',
+        'date',
+        'description',
+        'inviting',
+    ];
 }

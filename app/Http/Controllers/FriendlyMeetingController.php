@@ -3,44 +3,76 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFriendlyMeetingRequest;
+use App\Http\Requests\UpdateFriendlyMeetingRequest;
 use App\Models\FriendlyMeeting;
-use Illuminate\Support\Facades\DB;
 
 class FriendlyMeetingController extends Controller
 {
     public function index()
     {
-        return DB::select('SELECT * FROM friendly_meetings');
+        return FriendlyMeeting::all();
     }
 
-    public function show(FriendlyMeeting $friendlyMeeting)
+    public function show($id)
     {
-        return DB::select(
-            'SELECT * FROM friendly_meetings WHERE id = :id',
-            ['id' => $friendlyMeeting->id]
-        );
+        $friendlyMeeting = FriendlyMeeting::find($id);
+
+        if (!$friendlyMeeting) {
+            return response()->json([
+                'message' => 'Friendly meeting not found.',
+            ], 404);
+        }
+
+        return $friendlyMeeting;
     }
 
     public function store(StoreFriendlyMeetingRequest $request)
     {
-        $validated = $request->validated();
+        $friendlyMeeting = FriendlyMeeting::create($request->validated());
 
-        DB::insert(
-            'INSERT INTO friendly_meetings
-            (address, address_url, created_at, updated_at, date, description, inviting)
-            VALUES
-            (:address, :address_url, :created_at, :updated_at, :date, :description, :inviting)',
-            [
-                'address' => $validated['address'],
-                'address_url' => $validated['address_url'],
-                'created_at' => now(),
-                'updated_at' => now(),
-                'date' => $validated['date'],
-                'description' => $validated['description'],
-                'inviting' => $validated['inviting'],
-            ]
+        return response()->json([
+            'message' => 'Friendly meeting created successfully.',
+            'data' => $friendlyMeeting,
+        ]);
+    }
+
+    public function update(UpdateFriendlyMeetingRequest $request, $id)
+    {
+        $friendlyMeeting = FriendlyMeeting::find($id);
+
+        if (!$friendlyMeeting) {
+            return response()->json([
+                'message' => 'Friendly meeting not found.',
+            ], 404);
+        }
+
+        $updatedData = array_merge(
+            $friendlyMeeting->toArray(),
+            array_filter($request->validated(), fn($value) => !is_null($value))
         );
 
-        return $validated;
+        $friendlyMeeting->update($updatedData);
+
+        return response()->json([
+            'message' => 'Friendly meeting updated successfully.',
+            'data' => $friendlyMeeting,
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $friendlyMeeting = FriendlyMeeting::find($id);
+
+        if (!$friendlyMeeting) {
+            return response()->json([
+                'message' => 'Friendly meeting not found.',
+            ], 404);
+        }
+
+        $friendlyMeeting->delete();
+
+        return response()->json([
+            'message' => 'Friendly meeting deleted successfully.',
+        ]);
     }
 }

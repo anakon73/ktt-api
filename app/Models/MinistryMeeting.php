@@ -10,6 +10,13 @@ class MinistryMeeting extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'date',
+        'leader',
+        'address_id',
+        'friendly_meeting_id',
+    ];
+
     public function address()
     {
         return $this->belongsTo(Address::class);

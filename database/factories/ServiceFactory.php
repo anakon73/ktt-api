@@ -18,7 +18,6 @@ class ServiceFactory extends Factory
             'microphones' => $this->faker->name('male'),
             'voiceover_zoom' => $this->faker->name('male'),
             'administrator' => $this->faker->name('male'),
-            'meeting_id' => null,
         ];
     }
 }

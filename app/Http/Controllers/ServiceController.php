@@ -2,21 +2,77 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreServiceRequest;
+use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
-use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
     public function index()
     {
-        return DB::select('SELECT * FROM services');
+        return Service::all();
     }
 
-    public function show(Service $service)
+    public function show($id)
     {
-        return DB::select(
-            'SELECT * FROM services WHERE id = :id',
-            ['id' => $service->id]
+        $service = Service::find($id);
+
+        if (!$service) {
+            return response()->json([
+                'message' => 'Service not found.',
+            ], 404);
+        }
+
+        return $service;
+    }
+
+    public function store(StoreServiceRequest $request)
+    {
+        $service = Service::create($request->validated());
+
+        return response()->json([
+            'message' => 'Service created successfully.',
+            'data' => $service,
+        ]);
+    }
+
+    public function update(UpdateServiceRequest $request, $id)
+    {
+        $service = Service::find($id);
+
+        if (!$service) {
+            return response()->json([
+                'message' => 'Service not found.',
+            ], 404);
+        }
+
+        $updatedData = array_merge(
+            $service->toArray(),
+            array_filter($request->validated(), fn($value) => !is_null($value))
         );
+
+        $service->update($updatedData);
+
+        return response()->json([
+            'message' => 'Service updated successfully.',
+            'data' => $service,
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $service = Service::find($id);
+
+        if (!$service) {
+            return response()->json([
+                'message' => 'Service not found.',
+            ], 404);
+        }
+
+        $service->delete();
+
+        return response()->json([
+            'message' => 'Service deleted successfully.',
+        ]);
     }
 }

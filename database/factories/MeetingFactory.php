@@ -39,12 +39,7 @@ class MeetingFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Meeting $meeting) {
-            $service = Service::factory()->create([
-                'meeting_id' => $meeting->id,
-                'created_at' => $meeting->created_at,
-                'updated_at' => $meeting->updated_at,
-                'date' => $meeting->date,
-            ]);
+            $service = Service::factory()->create(['date' => $meeting->date]);
             $meeting->service_id = $service->id;
 
             $availableMinistryMeetingId = DB::select("

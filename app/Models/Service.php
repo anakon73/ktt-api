@@ -9,6 +9,14 @@ class Service extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'date',
+        'scene',
+        'microphones',
+        'voiceover_zoom',
+        'administrator',
+    ];
+
     public function meeting()
     {
         return $this->hasOne(Meeting::class);
