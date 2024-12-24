@@ -10,7 +10,9 @@ class MeetingController extends Controller
 {
     public function index()
     {
-        return Meeting::with(['address', 'status', 'ministryMeeting'])->get();
+        return Meeting::with(['address', 'status', 'ministryMeeting'])
+            ->orderBy('date', 'asc')
+            ->get();
     }
 
     public function show($id)
