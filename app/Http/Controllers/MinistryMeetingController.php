@@ -10,7 +10,7 @@ class MinistryMeetingController extends Controller
 {
     public function index()
     {
-        return MinistryMeeting::with(['friendlyMeeting'])->get();
+        return MinistryMeeting::with(['friendlyMeeting'])->orderBy('date', 'asc')->get();
     }
 
     public function show($id)
