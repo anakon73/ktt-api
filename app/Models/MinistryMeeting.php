@@ -17,11 +17,6 @@ class MinistryMeeting extends Model
         'friendly_meeting_id',
     ];
 
-    public function address()
-    {
-        return $this->belongsTo(Address::class);
-    }
-
     public function friendlyMeeting()
     {
         return $this->belongsTo(FriendlyMeeting::class);

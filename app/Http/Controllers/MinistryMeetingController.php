@@ -10,14 +10,12 @@ class MinistryMeetingController extends Controller
 {
     public function index()
     {
-        return MinistryMeeting::with(['address', 'friendlyMeeting'])->get();
+        return MinistryMeeting::with(['friendlyMeeting'])->get();
     }
 
     public function show($id)
     {
-        $ministryMeeting = MinistryMeeting
-            ::with(['address', 'friendlyMeeting'])
-            ->find($id);
+        $ministryMeeting = MinistryMeeting::with(['friendlyMeeting'])->find($id);
 
         if (!$ministryMeeting) {
             return response()->json([
