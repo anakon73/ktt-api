@@ -13,11 +13,8 @@ return new class extends Migration
             $table->timestamps();
             $table->timestamp('date');
             $table->string('leader')->nullable();
-            $table
-                ->foreignId('address_id')
-                ->nullable()
-                ->constrained('addresses')
-                ->onDelete('cascade');
+            $table->string('address')->nullable();
+            $table->string('address_url')->nullable();
         });
     }
 

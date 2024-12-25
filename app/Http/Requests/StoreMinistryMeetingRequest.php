@@ -11,7 +11,8 @@ class StoreMinistryMeetingRequest extends FormRequest
         return [
             'date' => 'required|date',
             'leader' => 'nullable|string',
-            'address_id' => 'nullable|exists:addresses,id',
+            'address' => 'nullable|string',
+            'address_url' => 'nullable|url',
             'friendly_meeting_id' => 'nullable|exists:friendly_meetings,id',
         ];
     }

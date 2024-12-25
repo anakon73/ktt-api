@@ -20,7 +20,8 @@ class MinistryMeetingFactory extends Factory
             'updated_at' => $date,
             'date' => $date,
             'leader' => $this->faker->name('male'),
-            'address_id' => DB::table('addresses')->inRandomOrder()->value('id'),
+            'address' => $this->faker->address(),
+            'address_url' => $this->faker->url(),
             'friendly_meeting_id' => $this->faker->boolean(50)
                 ? FriendlyMeeting::factory()->create()->id
                 : null,
