@@ -13,7 +13,8 @@ class MinistryMeeting extends Model
     protected $fillable = [
         'date',
         'leader',
-        'address_id',
+        'address',
+        'address_url',
         'friendly_meeting_id',
     ];
 
