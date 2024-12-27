@@ -10,14 +10,14 @@ class MeetingController extends Controller
 {
     public function index()
     {
-        return Meeting::with(['address', 'status', 'ministryMeeting.friendlyMeeting'])
+        return Meeting::with(['address', 'status', 'ministryMeeting.friendlyMeeting', 'service'])
             ->orderBy('date', 'asc')
             ->get();
     }
 
     public function show($id)
     {
-        $meeting = Meeting::with(['address', 'status', 'ministryMeeting.friendlyMeeting'])->find($id);
+        $meeting = Meeting::with(['address', 'status', 'ministryMeeting.friendlyMeeting', 'service'])->find($id);
 
         if (!$meeting) {
             return response()->json([
