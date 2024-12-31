@@ -8,6 +8,8 @@ return new class extends Migration
 {
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::create('meetings', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
@@ -21,14 +23,20 @@ return new class extends Migration
             $table->string('special_program')->nullable();
             $table
                 ->foreignId('status_id')
+                ->nullable()
                 ->constrained('meeting_statuses')
-                ->onDelete('cascade');
+                ->onDelete('set null');
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     public function down(): void
     {
+        Schema::table('meetings', function (Blueprint $table) {
+            $table->dropForeign(['status_id']);
+        });
+
         Schema::dropIfExists('meetings');
-        Schema::dropIfExists('meeting_statuses');
     }
 };

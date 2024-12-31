@@ -13,7 +13,7 @@ return new class extends Migration
                 ->foreignId('friendly_meeting_id')
                 ->nullable()
                 ->constrained('friendly_meetings')
-                ->onDelete('cascade');
+                ->onDelete('set null');
         });
     }
 

@@ -13,7 +13,7 @@ return new class extends Migration
                 ->foreignId('service_id')
                 ->nullable()
                 ->constrained('services')
-                ->onDelete('cascade');
+                ->onDelete('set null');
         });
     }
 
