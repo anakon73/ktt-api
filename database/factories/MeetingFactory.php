@@ -47,7 +47,7 @@ class MeetingFactory extends Factory
                 FROM ministry_meetings mm
                 LEFT JOIN meetings m ON m.ministry_meeting_id = mm.id
                 WHERE m.ministry_meeting_id IS NULL
-                ORDER BY RAND()
+                ORDER BY RANDOM()
                 LIMIT 1
             ");
 
