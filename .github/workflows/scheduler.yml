@@ -2,7 +2,7 @@ name: Delete Old Meetings
 
 on:
   schedule:
-    - cron: "* * * * *"
+    - cron: "0 4 * * *"
   workflow_dispatch:
 
 jobs:
