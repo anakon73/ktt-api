@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     nodejs \
     npm \
-    libpq-dev
+    libpq-dev \
+    supervisor
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_pgsql pgsql mbstring exif pcntl bcmath gd
@@ -28,11 +29,14 @@ COPY . .
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+# Create supervisor config
+RUN mkdir -p /etc/supervisor/conf.d/
+COPY docker/supervisor/laravel-scheduler.conf /etc/supervisor/conf.d/
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www
 
 # Expose port
 EXPOSE 8000
 
-# Start server
-CMD php artisan serve --host=0.0.0.0 --port=8000
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
