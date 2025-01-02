@@ -1,0 +1,30 @@
+name: Laravel Scheduler
+on:
+  schedule:
+    - cron: '*/1 * * * *'
+
+jobs:
+  laravel-scheduler:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: pdo, pdo_pgsql, pgsql, mbstring, exif, pcntl, bcmath, gd
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Run Scheduler
+        run: php artisan schedule:run
+        env:
+          DB_CONNECTION: pgsql
+          DB_HOST: aws-0-eu-central-1.pooler.supabase.com
+          DB_PORT: 6543
+          DB_DATABASE: postgres
+          DB_USERNAME: postgres.wynnzxckluacevsfihax
+          DB_PASSWORD: mostovoyMax
