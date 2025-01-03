@@ -10,27 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          extensions: pdo_mysql
-          ini-values: "memory_limit=512M"
-          coverage: none
-
-      - name: Install dependencies
+      - name: Call API to delete old meetings
         run: |
-          composer install --no-progress --no-suggest --prefer-dist
-
-      - name: Run Laravel Command
-        env:
-          DB_CONNECTION: pgsql
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: php artisan meetings:delete-old
+          curl --request POST \
+          --url 'https://ktt-api.onrender.com/api/meetings/delete-old-meetings'
