@@ -13,12 +13,10 @@ class DeleteOldMeetings extends Command
 
     public function handle()
     {
-        $this->info('Starting to check for old meetings...');
-
         $cutoffTime = Carbon::now()->subHours(24);
 
         $deletedCount = Meeting::where('date', '<', $cutoffTime)->delete();
 
-        $this->info("Successfully deleted {$deletedCount} old meetings");
+        return $deletedCount;
     }
 }

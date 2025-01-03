@@ -5,6 +5,7 @@ use App\Http\Controllers\FriendlyMeetingController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\MinistryMeetingController;
 use App\Http\Controllers\ServiceController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/meetings')->controller(MeetingController::class)->group(function () {
@@ -13,6 +14,12 @@ Route::prefix('/meetings')->controller(MeetingController::class)->group(function
   Route::post('/', 'store');
   Route::patch('/{id}', 'update');
   Route::delete('/{id}', 'destroy');
+
+  Route::post('/delete-old-meetings', function () {
+    $count = Artisan::call('meetings:delete-old');
+
+    return response()->json(['message' => "$count old meetings deleted"]);
+  });
 });
 
 Route::prefix('/ministry-meetings')->controller(MinistryMeetingController::class)->group(function () {
