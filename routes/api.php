@@ -14,12 +14,6 @@ Route::prefix('/meetings')->controller(MeetingController::class)->group(function
   Route::post('/', 'store');
   Route::patch('/{id}', 'update');
   Route::delete('/{id}', 'destroy');
-
-  Route::post('/delete-old-meetings', function () {
-    $count = Artisan::call('meetings:delete-old');
-
-    return response()->json(['message' => "$count old meetings deleted"]);
-  });
 });
 
 Route::prefix('/ministry-meetings')->controller(MinistryMeetingController::class)->group(function () {
@@ -51,4 +45,8 @@ Route::prefix('/friendly-meetings')->controller(FriendlyMeetingController::class
   Route::post('/', 'store');
   Route::patch('/{id}', 'update');
   Route::delete('/{id}', 'destroy');
+});
+
+Route::post('/run-all-cleanups', function () {
+  Artisan::call('run:all-cleanups');
 });
