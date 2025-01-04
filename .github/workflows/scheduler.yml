@@ -13,4 +13,4 @@ jobs:
       - name: Call API to delete old meetings
         run: |
           curl --request POST \
-          --url 'https://ktt-api.onrender.com/api/meetings/delete-old-meetings'
+          --url 'https://ktt-api.onrender.com/api/run-all-cleanups'
