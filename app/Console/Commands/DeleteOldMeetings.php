@@ -15,8 +15,6 @@ class DeleteOldMeetings extends Command
     {
         $cutoffTime = Carbon::now()->subHours(24);
 
-        $deletedCount = Meeting::where('date', '<', $cutoffTime)->delete();
-
-        return $deletedCount;
+        Meeting::where('date', '<', $cutoffTime)->delete();
     }
 }
