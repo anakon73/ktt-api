@@ -1,0 +1,17 @@
+name: Wake up backend
+
+on:
+  schedule:
+    # Run every 14 minutes
+    - cron: "*/14 * * * *"
+  workflow_dispatch:
+
+jobs:
+  wake-up-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Make GET request
+        run: |
+          curl --request GET \
+          --url 'https://ktt-api.onrender.com/api/addresses'
