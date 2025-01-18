@@ -2,8 +2,7 @@ name: Wake up backend
 
 on:
   schedule:
-    # Run every 14 minutes
-    - cron: "*/14 * * * *"
+    - cron: "0,10,20,30,40,50 * * * *"
   workflow_dispatch:
 
 jobs:
