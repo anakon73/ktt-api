@@ -11,6 +11,7 @@ class StoreMeetingRequest extends FormRequest
         return [
             'date' => 'required|date',
             'leading' => 'required|string',
+            'speaker' => 'nullable|string',
             'speech_title' => 'nullable|string',
             'lead_wt' => 'nullable|string',
             'reader' => 'nullable|string',

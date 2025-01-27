@@ -11,6 +11,7 @@ class UpdateMeetingRequest extends FormRequest
         return [
             'date' => 'nullable|date',
             'leading' => 'nullable|string',
+            'speaker' => 'nullable|string',
             'speech_title' => 'nullable|string',
             'lead_wt' => 'nullable|string',
             'reader' => 'nullable|string',
