@@ -15,6 +15,7 @@ class Meeting extends Model
         'speech_title',
         'lead_wt',
         'reader',
+        'speaker',
         'closing_prayer',
         'special_program',
         'status_id',
