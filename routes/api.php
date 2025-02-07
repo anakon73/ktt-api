@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\FriendlyMeetingController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\MinistryMeetingController;
@@ -44,6 +45,13 @@ Route::prefix('/friendly-meetings')->controller(FriendlyMeetingController::class
   Route::get('/{id}', 'show');
   Route::post('/', 'store');
   Route::patch('/{id}', 'update');
+  Route::delete('/{id}', 'destroy');
+});
+
+Route::prefix('/announcements')->controller(AnnouncementController::class)->group(function () {
+  Route::get('/', 'index');
+  Route::get('/{id}', 'show');
+  Route::post('/', 'store');
   Route::delete('/{id}', 'destroy');
 });
 
