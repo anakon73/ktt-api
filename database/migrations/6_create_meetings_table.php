@@ -21,22 +21,25 @@ return new class extends Migration
             $table->string('reader')->nullable();
             $table->string('closing_prayer')->nullable();
             $table->string('special_program')->nullable();
-            $table
-                ->foreignId('status_id')
-                ->nullable()
-                ->constrained('meeting_statuses')
-                ->onDelete('set null');
-        });
 
-        Schema::enableForeignKeyConstraints();
+            $foreignKeys = [
+                'status_id' => 'meeting_statuses',
+                'service_id' => 'services',
+                'address_id' => 'addresses',
+                'ministry_meeting_id' => 'ministry_meetings',
+            ];
+
+            foreach ($foreignKeys as $column => $referenceTable) {
+                $table->foreignId($column)
+                    ->nullable()
+                    ->constrained($referenceTable)
+                    ->onDelete('set null');
+            }
+        });
     }
 
     public function down(): void
     {
-        Schema::table('meetings', function (Blueprint $table) {
-            $table->dropForeign(['status_id']);
-        });
-
         Schema::dropIfExists('meetings');
     }
 };
