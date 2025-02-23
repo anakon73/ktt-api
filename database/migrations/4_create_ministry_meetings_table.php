@@ -15,6 +15,11 @@ return new class extends Migration
             $table->string('leader')->nullable();
             $table->string('address')->nullable();
             $table->string('address_url')->nullable();
+            $table
+                ->foreignId('friendly_meeting_id')
+                ->nullable()
+                ->constrained('friendly_meetings')
+                ->onDelete('set null');
         });
     }
 
