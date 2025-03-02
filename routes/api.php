@@ -4,6 +4,8 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\FriendlyMeetingController;
 use App\Http\Controllers\MeetingController;
+use App\Http\Controllers\MeetingServiceController;
+use App\Http\Controllers\MinistryFriendlyController;
 use App\Http\Controllers\MinistryMeetingController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Artisan;
@@ -53,6 +55,16 @@ Route::prefix('/announcements')->controller(AnnouncementController::class)->grou
   Route::get('/{id}', 'show');
   Route::post('/', 'store');
   Route::delete('/{id}', 'destroy');
+});
+
+Route::prefix('/meeting-service')->controller(MeetingServiceController::class)->group(function () {
+  Route::post('/', 'store');
+  Route::patch('/{id}', 'update');
+});
+
+Route::prefix('ministry-friendly')->controller(MinistryFriendlyController::class)->group(function () {
+  Route::post('/', 'store');
+  Route::patch('/{id}', 'update');
 });
 
 Route::post('/run-all-cleanups', function () {
